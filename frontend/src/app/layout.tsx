@@ -27,7 +27,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main className="grid grid-cols-12 gap-2 lg:grid-cols-9 max-w-[2560px]">
+          {children}
+        </main>
       </body>
     </html>
   );
