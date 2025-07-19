@@ -11,8 +11,9 @@ export default function Home() {
           <AuthSwitcher />
         </div>
         <p className="bg-black/70 rounded-lg p-4 text-center text-green-200 text-base font-medium shadow-inner mb-2">
-          If you are seeing this screen, it means your party has not been set up
-          yet, or there is a problem with the backend SQLite connection.
+          Create the super administrator. If you see this screen after creating
+          the super administrator, there is a problem with the backend SQLite
+          connection.
           <br /> Please check your configuration. If the issue persists, contact
           me at
           <span className="text-green-300 font-bold">

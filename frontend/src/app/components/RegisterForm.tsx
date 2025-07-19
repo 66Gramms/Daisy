@@ -10,27 +10,40 @@ export default function RegisterForm() {
         <input
           id="party-name"
           type="text"
-          className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:opacity-40"
           autoComplete="username"
+          placeholder="qbparty 2016"
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="reg-username" className="font-medium">
+        <label htmlFor="username" className="font-medium">
           Username
         </label>
         <input
-          id="reg-username"
+          id="username"
           type="text"
-          className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:opacity-40"
           autoComplete="username"
+          placeholder="66Gramms"
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="reg-password" className=" font-medium">
+        <label htmlFor="password" className=" font-medium">
           Password
         </label>
         <input
-          id="reg-password"
+          id="password"
+          type="password"
+          className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+          autoComplete="new-password"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="confirmPassword" className=" font-medium">
+          Confirm Password
+        </label>
+        <input
+          id="confirmPassword"
           type="password"
           className="px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
           autoComplete="new-password"
