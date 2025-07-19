@@ -2,8 +2,11 @@ import express, { Request, Response } from "express";
 import sqlite3 from "sqlite3";
 import fs from "fs";
 import bcrypt from "bcrypt";
+import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
+const SECRET_KEY = "mysecretkey";
 
 const db = new sqlite3.Database("./database.sqlite", (err: Error | null) => {
   if (err) {
@@ -22,6 +25,7 @@ const db = new sqlite3.Database("./database.sqlite", (err: Error | null) => {
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.post("/register", async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
@@ -33,16 +37,18 @@ app.post("/register", async (req: Request, res: Response) => {
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const sql =
-      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-    db.run(sql, [username, email, hashedPassword], function (err) {
+    const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+    db.run(sql, [username, hashedPassword], function (err) {
       if (err) {
         if (err.message.includes("UNIQUE constraint failed")) {
-          return res.status(409).json({ error: "Email already registered." });
+          return res
+            .status(409)
+            .json({ error: "Username already registered." });
         }
         return res.status(500).json({ error: err.message });
       }
-      res.status(201).json({ id: this.lastID, username, email });
+      const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: Infinity });
+      res.status(201).json({ token, user: { id: this.lastID, username } });
     });
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
@@ -77,6 +83,6 @@ app.post("/login", (req: Request, res: Response) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
