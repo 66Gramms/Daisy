@@ -4,20 +4,22 @@ import fs from "fs";
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
+import { logger } from "./logger";
 
 const PORT = process.env.PORT || 5000;
 const SECRET_KEY = "mysecretkey";
 
 const db = new sqlite3.Database("./database.sqlite", (err: Error | null) => {
   if (err) {
-    console.error("Error opening database:", err.message);
+    logger.error("Error opening database:", err.message);
+    process.exit(1);
   } else {
     const initSql = fs.readFileSync("./database.sqlite.init.sql", "utf8");
     db.exec(initSql, (err: Error | null) => {
       if (err) {
-        console.error("Error, couldn't initialize SQL:", err.message);
+        logger.error("Error, couldn't initialize SQL:", err.message);
       } else {
-        console.log("Database initialized");
+        logger.info("Database initialized");
       }
     });
   }
@@ -84,5 +86,5 @@ app.post("/login", (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  logger.info(`Server is running on http://localhost:${PORT}`);
 });
