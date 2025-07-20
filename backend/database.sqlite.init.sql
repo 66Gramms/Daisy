@@ -9,8 +9,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS party (
-    name TEXT PRIMARY KEY NOT NULL,
-    owner INTEGER NOT NULL,
-    FOREIGN KEY (owner) REFERENCES users(id)
-)
+    name TEXT PRIMARY KEY NOT NULL
+);
 

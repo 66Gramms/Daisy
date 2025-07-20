@@ -28,7 +28,7 @@ function colorize(level: LogLevel, msg: string): string {
 
 function createLogger(options: LoggerOptions = {}) {
   const {
-    level = "info",
+    level = "debug",
     showTimestamp = true,
     useColors = true,
     context = "",

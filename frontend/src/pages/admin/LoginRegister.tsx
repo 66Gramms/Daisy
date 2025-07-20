@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AdminLoginRegisterFormData, AdminLoginRegisterSchema } from "./schema";
 import { FormInput } from "../../components/molecules/FormInput";
 import { FormButton } from "../../components/molecules/FormButton";
+import { useMutation } from "@tanstack/react-query";
 
 export default function AdminLoginRegisterPage() {
   const [showRegister, setShowRegister] = useState(true);
@@ -66,19 +67,48 @@ const RegisterForm = () => {
     resolver: zodResolver(AdminLoginRegisterSchema),
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: AdminLoginRegisterFormData) => {
+      console.log(JSON.stringify(data));
+      const response = await fetch(
+        "http://localhost:5000/api/admin/register-party",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      return response.json();
+    },
+    onSuccess: (resp) => {
+      console.log("Registration successful!", resp);
+    },
+    onError: (error) => {
+      console.error("failure", error.message);
+    },
+  });
+
   const onSubmit = (data: AdminLoginRegisterFormData) => {
     console.log("Form submitted:", data);
+    mutation.mutate(data);
   };
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         label="Party Name"
-        id="partyName"
+        id="partyname"
         placeholder="qbparty 2016"
         autoComplete="username"
         register={register}
-        error={errors.partyName?.message}
+        error={errors.partyname?.message}
       />
       <FormInput
         label="Username"

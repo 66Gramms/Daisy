@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const AdminLoginRegisterSchema = z
   .object({
-    partyName: z
+    partyname: z
       .string()
       .min(2, { message: "Party name must be at least 2 characters long" })
       .max(100, { message: "Party name must be at most 100 characters long" }),
