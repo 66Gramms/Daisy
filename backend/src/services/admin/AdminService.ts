@@ -23,7 +23,7 @@ export function CreateUser(
 }
 
 const GET_USER_BY_NAME =
-  "SELECT id, username, password, accessRights FROM users WHERE username = ?";
+  "SELECT id, username, password, accessRights FROM users WHERE LOWER(username) = ?";
 export function GetUserByUsername(username: string): Promise<{
   id: number;
   username: string;
@@ -31,7 +31,7 @@ export function GetUserByUsername(username: string): Promise<{
   accessRights: AccessRights;
 } | null> {
   return new Promise((resolve, reject) => {
-    db.get(GET_USER_BY_NAME, [username], (err, row) => {
+    db.get(GET_USER_BY_NAME, [username.toLowerCase()], (err, row) => {
       if (err) return reject(err);
       if (!row) return resolve(null);
       resolve(

@@ -35,8 +35,7 @@ export const Login = async (req: Request, res: Response) => {
         expiresIn: "7d",
       }
     );
-    const { password: _, ...user } = userRow;
-    res.json({ token, user });
+    res.json({ token, username: userRow.username });
   } catch (err: any) {
     logger.error("Login error:", err);
     return res.status(500).json({ error: "Internal server error" });

@@ -41,30 +41,38 @@ export const RegisterParty = async (req: Request, res: Response) => {
 
   const saltRounds = 10;
   const hashedPassword = bcrypt.hashSync(password, saltRounds);
+  let userId: number | undefined;
+
+  db.run("BEGIN TRANSACTION");
   try {
-    db.run("BEGIN TRANSACTION");
-    const userId = await CreateUser(
+    userId = await CreateUser(
       username,
       hashedPassword,
       AccessRights.superAdmin
     );
-    await CreateParty(partyname);
-    const token = jwt.sign(
-      { userId, accesRights: AccessRights.superAdmin },
-      SECRET_KEY,
-      { expiresIn: "7d" }
-    );
-    res.status(201).json({
-      token,
-      username,
-      partyname,
-    });
   } catch (err: any) {
-    logger.error("Error registering user or party:", err.message);
+    logger.error("Error registering user:", err.message);
     db.run("ROLLBACK");
     return res.status(500).json({ error: "Internal server error" });
   }
+  try {
+    await CreateParty(partyname);
+  } catch (err: any) {
+    logger.error("Error creating party:", err.message);
+    db.run("ROLLBACK");
+    return res.status(500).json({ error: "Internal server error" });
+  }
+  const token = jwt.sign(
+    { userId, accesRights: AccessRights.superAdmin },
+    SECRET_KEY,
+    { expiresIn: "7d" }
+  );
   logger.debug("User registered:", username);
   logger.debug("Party registered:", partyname);
   db.run("COMMIT");
+  return res.status(201).json({
+    token,
+    username,
+    partyname,
+  });
 };
