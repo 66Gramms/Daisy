@@ -52,7 +52,7 @@ export function FormInput<T extends FieldValues = FieldValues>({
         {...(register ? register(id) : {})}
       />
       {error && (
-        <span className="text-red-400 text-xs mt-1 px-1 py-0.5 rounded bg-red-950 border border-red-700 animate-fade-in">
+        <span className="text-red-400 text-xs mt-1 px-1 py-0.5 rounded animate-fade-in">
           {error}
         </span>
       )}
