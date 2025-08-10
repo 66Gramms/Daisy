@@ -1,5 +1,6 @@
 import React from "react";
 import { FieldValues, UseFormRegister, Path } from "react-hook-form";
+import clsx from "clsx";
 
 export type InputProps<T extends FieldValues = FieldValues> = {
   label: string;
@@ -12,7 +13,7 @@ export type InputProps<T extends FieldValues = FieldValues> = {
   disabled?: boolean;
 };
 
-export function FormInput<T extends FieldValues = FieldValues>({
+export function Input<T extends FieldValues = FieldValues>({
   label,
   id,
   type = "text",
@@ -22,12 +23,15 @@ export function FormInput<T extends FieldValues = FieldValues>({
   error,
   disabled = false,
 }: InputProps<T>) {
-  const inputClass = error
-    ? "px-4 py-2 rounded bg-black text-white border border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 placeholder:opacity-40"
-    : "px-4 py-2 rounded bg-black text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:opacity-40";
-  const disabledClass = disabled
-    ? "opacity-50 cursor-not-allowed bg-gray-900 border-gray-700 text-gray-400"
-    : "";
+  const inputClass = clsx(
+    "px-4 py-2 rounded bg-black text-white focus:outline-none focus:ring-2 placeholder:opacity-40",
+    {
+      "border border-red-500 focus:ring-red-500": error,
+      "border border-green-500 focus:ring-green-500": !error,
+      "opacity-50 cursor-not-allowed bg-gray-900 border-gray-700 text-gray-400":
+        disabled,
+    },
+  );
   return (
     <div className="flex flex-col gap-2">
       <label
@@ -45,7 +49,7 @@ export function FormInput<T extends FieldValues = FieldValues>({
       <input
         id={id}
         type={type}
-        className={`${inputClass} ${disabledClass}`}
+        className={inputClass}
         autoComplete={autoComplete}
         placeholder={placeholder}
         disabled={disabled}

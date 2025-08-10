@@ -76,3 +76,13 @@ export const RegisterParty = async (req: Request, res: Response) => {
     partyname,
   });
 };
+
+export const HasParty = async (req: Request, res: Response) => {
+  try {
+    const count = await GetPartyCount();
+    return res.status(200).json({ hasParty: count > 0 });
+  } catch (err: any) {
+    logger.error("Error checking party existence:", err.message);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};

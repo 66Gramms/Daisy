@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AdminLoginRegisterSchema = z
+export const AdminPartyRegisterSchema = z
   .object({
     partyname: z
       .string()
@@ -22,5 +22,5 @@ export const AdminLoginRegisterSchema = z
   });
 
 export type AdminLoginRegisterFormData = z.infer<
-  typeof AdminLoginRegisterSchema
+  typeof AdminPartyRegisterSchema
 >;

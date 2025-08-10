@@ -8,7 +8,7 @@ export type FormButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export function FormButton({
+export function Button({
   children,
   type = "button",
   disabled,

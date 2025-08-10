@@ -20,3 +20,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   @apply text-green-400;
 }
+
+@layer utilities {
+  .highlight-text {
+    @apply text-green-300 font-bold;
+  }
+}
