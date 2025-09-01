@@ -4,6 +4,7 @@ const defaultRequestOptions: RequestInit = {
   method: "GET",
   headers: {
     Accept: "application/json",
+    "Content-Type": "application/json",
   },
   next: { revalidate: 0 },
 };
@@ -20,7 +21,7 @@ const sendRequest = async <T>(
       ...requestOptions.headers,
     },
   };
-  console.log(` req: ${options.method} /${path}`);
+  console.log(` req: ${options.method} ${path}`);
   const response = await fetch(`${HOST}${path}`, options);
   if (!response.ok) {
     const error = await response.json();
