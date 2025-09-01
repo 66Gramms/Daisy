@@ -7,6 +7,7 @@ import { AdminLoginRegisterFormData, AdminPartyRegisterSchema } from "./schema";
 import { Input } from "../../components/molecules/Input";
 import { Button } from "../../components/molecules/Button";
 import { useMutation } from "@tanstack/react-query";
+import { registerParty } from "@/services/api/admin";
 
 interface AdminLoginRegisterPageProps {
   hasParty: boolean;
@@ -70,25 +71,7 @@ const RegisterForm = ({ hasParty }: RegisterFormProps) => {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: AdminLoginRegisterFormData) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/party/register-party`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        },
-      );
-
-      if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || "Unknown error");
-      }
-
-      return response.json();
-    },
+    mutationFn: registerParty,
     onSuccess: (resp) => {
       console.log("Registration successful!", resp);
     },

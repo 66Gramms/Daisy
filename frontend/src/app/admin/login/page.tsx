@@ -1,4 +1,6 @@
+import { QueryKeys } from "@/constants/querykeys";
 import AdminLoginRegisterPage from "@/pages/admin/LoginRegister";
+import { getHasParty } from "@/services/api/admin/party";
 import { QueryClient } from "@tanstack/react-query";
 
 export default async function AdminLoginRegister() {
@@ -6,17 +8,8 @@ export default async function AdminLoginRegister() {
 
   const response = await queryClient
     .fetchQuery({
-      queryKey: ["hasParty"],
-      queryFn: async () => {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/party/has-party`,
-        );
-        if (!response.ok) {
-          const err = await response.json();
-          throw new Error(err.message);
-        }
-        return response.json();
-      },
+      queryKey: [QueryKeys.HAS_PARTY],
+      queryFn: getHasParty,
     })
     .catch((error) => {
       console.error(error);
@@ -29,7 +22,7 @@ export default async function AdminLoginRegister() {
           <h1 className="text-3xl font-bold text-green-500 text-center mb-2">
             Daisy
           </h1>
-          <AdminLoginRegisterPage hasParty={response?.hasParty} />
+          <AdminLoginRegisterPage hasParty={response?.hasParty ?? false} />
         </div>
         {!response?.hasParty && (
           <p className="bg-black/70 rounded-lg p-4 text-center text-green-200 text-base font-medium shadow-inner mb-2">
