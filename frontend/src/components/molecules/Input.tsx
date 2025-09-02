@@ -7,7 +7,6 @@ export type InputProps<T extends FieldValues = FieldValues> = {
   id: Path<T>;
   type?: string;
   placeholder?: string;
-  autoComplete?: string;
   register?: UseFormRegister<T>;
   error?: string | null;
   disabled?: boolean;
@@ -18,7 +17,6 @@ export function Input<T extends FieldValues = FieldValues>({
   id,
   type = "text",
   placeholder,
-  autoComplete,
   register,
   error,
   disabled = false,
@@ -32,6 +30,7 @@ export function Input<T extends FieldValues = FieldValues>({
         disabled,
     },
   );
+
   return (
     <div className="flex flex-col gap-2">
       <label
@@ -50,7 +49,6 @@ export function Input<T extends FieldValues = FieldValues>({
         id={id}
         type={type}
         className={inputClass}
-        autoComplete={autoComplete}
         placeholder={placeholder}
         disabled={disabled}
         {...(register ? register(id) : {})}

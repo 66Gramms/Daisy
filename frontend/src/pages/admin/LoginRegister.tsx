@@ -11,7 +11,6 @@ import {
 } from "./schema";
 import { Input } from "../../components/molecules/Input";
 import { Button } from "../../components/molecules/Button";
-import { useMutation } from "@tanstack/react-query";
 import { registerParty } from "@/services/api/admin/party";
 import adminLoginAction from "@/actions/admin";
 
@@ -22,21 +21,63 @@ interface AdminLoginRegisterPageProps {
 export default function AdminLoginRegisterPage({
   hasParty,
 }: AdminLoginRegisterPageProps) {
-  const [showRegister, setShowRegister] = useState(!hasParty);
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <>
-      {showRegister ? <RegisterPartyForm hasParty={hasParty} /> : <LoginForm />}
+      {!hasParty && <RegisterPartyForm />}
+      {showLogin ? <LoginForm /> : <RegisterForm />}
       <button
         type="button"
         className="text-gray-200 hover:underline text-sm mt-2"
-        onClick={() => setShowRegister((r) => !r)}
+        onClick={() => setShowLogin((prev) => !prev)}
       >
-        {showRegister ? "Login instead" : "Register instead"}
+        {showLogin ? "Register instead" : "Login instead"}
       </button>
     </>
   );
 }
+
+const RegisterForm = () => {
+  return (
+    <form className="flex flex-col gap-6">
+      <Input
+        label="Username"
+        id="username"
+        placeholder="66Gramms"
+        // register={register}
+        // error={errors.username?.message}
+      />
+      <Input
+        label="Password"
+        id="password"
+        type="password"
+        // register={register}
+        // error={errors.password?.message}
+      />
+      <Input
+        label="Confirm Password"
+        id="confirmPassword"
+        type="password"
+        // register={register}
+        // error={errors.confirmPassword?.message}
+      />
+      <Input
+        label="Key"
+        id="key"
+        type="text"
+        // register={register}
+        // error={errors.key?.message}
+      />
+      <Button
+        type="submit"
+        className="mt-4 py-2 rounded bg-green-500 text-black font-bold hover:bg-green-600 transition-colors"
+      >
+        Login
+      </Button>
+    </form>
+  );
+};
 
 const LoginForm = () => {
   const {
@@ -47,8 +88,8 @@ const LoginForm = () => {
     resolver: zodResolver(AdminLoginSchema),
   });
 
-  const onSubmit = async (data: AdminLoginFormData) => {
-    await adminLoginAction(data);
+  const onSubmit = (data: AdminLoginFormData) => {
+    adminLoginAction(data);
   };
 
   return (
@@ -57,7 +98,6 @@ const LoginForm = () => {
         label="Username"
         id="username"
         placeholder="66Gramms"
-        autoComplete="username"
         register={register}
         error={errors.username?.message}
       />
@@ -65,7 +105,6 @@ const LoginForm = () => {
         label="Password"
         id="password"
         type="password"
-        autoComplete="current-password"
         register={register}
         error={errors.password?.message}
       />
@@ -79,11 +118,7 @@ const LoginForm = () => {
   );
 };
 
-interface RegisterFormProps {
-  hasParty: boolean;
-}
-
-const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
+const RegisterPartyForm = () => {
   const {
     register,
     handleSubmit,
@@ -92,18 +127,8 @@ const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
     resolver: zodResolver(PartyRegisterSchema),
   });
 
-  const mutation = useMutation({
-    mutationFn: registerParty,
-    onSuccess: (resp) => {
-      console.log("Registration successful!", resp);
-    },
-    onError: (error) => {
-      console.error(error.message);
-    },
-  });
-
   const onSubmit = (data: PartyRegisterFormData) => {
-    mutation.mutate(data);
+    registerParty(data);
   };
 
   return (
@@ -112,7 +137,6 @@ const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
         label="Party Name"
         id="partyname"
         placeholder="qbparty 2016"
-        autoComplete="username"
         register={register}
         error={errors.partyname?.message}
       />
@@ -120,7 +144,6 @@ const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
         label="Username"
         id="username"
         placeholder="66Gramms"
-        autoComplete="username"
         register={register}
         error={errors.username?.message}
       />
@@ -128,7 +151,6 @@ const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
         label="Password"
         id="password"
         type="password"
-        autoComplete="new-password"
         register={register}
         error={errors.password?.message}
       />
@@ -136,7 +158,6 @@ const RegisterPartyForm = ({ hasParty }: RegisterFormProps) => {
         label="Confirm Password"
         id="confirmPassword"
         type="password"
-        autoComplete="new-password"
         register={register}
         error={errors.confirmPassword?.message}
       />
