@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AdminPartyRegisterSchema = z
+export const PartyRegisterSchema = z
   .object({
     partyname: z
       .string()
@@ -21,6 +21,17 @@ export const AdminPartyRegisterSchema = z
     path: ["confirmPassword"],
   });
 
-export type AdminLoginRegisterFormData = z.infer<
-  typeof AdminPartyRegisterSchema
->;
+export type PartyRegisterFormData = z.infer<typeof PartyRegisterSchema>;
+
+export const AdminLoginSchema = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Username must be at least 3 characters long" })
+    .max(100, { message: "Username must be at most 100 characters long" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(100, { message: "Password must be at most 100 characters long" }),
+});
+
+export type AdminLoginFormData = z.infer<typeof AdminLoginSchema>;

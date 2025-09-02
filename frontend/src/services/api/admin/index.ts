@@ -1,11 +1,15 @@
-import { AdminLoginRegisterFormData } from "@/pages/admin/schema";
+import { AdminLoginFormData } from "@/pages/admin/schema";
+import { ApiRoutes } from "../routes";
 import sendRequest from "../send-request";
-import { ApiRoutes, getApiUrl } from "../routes";
+import { AdminLoginResponse } from "./types";
 
-export const registerParty = async (data: AdminLoginRegisterFormData) => {
-  const response = await sendRequest(getApiUrl(ApiRoutes.REGISTER_PARTY), {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+export const adminLogin = async (data: AdminLoginFormData) => {
+  const response = await sendRequest<AdminLoginResponse>(
+    ApiRoutes.ADMIN_LOGIN,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    },
+  );
   return response;
 };
