@@ -138,8 +138,7 @@ const RegisterPartyForm = () => {
 
   const onSubmit = async (data: PartyRegisterFormData) => {
     const resp = await registerPartyAction(data);
-    queryClient.setQueryData([QueryKeys.ME], resp.username);
-    queryClient.setQueryData([QueryKeys.PARTY], resp.partyname);
+    queryClient.setQueryData([QueryKeys.ME], resp);
     router.replace("/admin");
   };
 

@@ -73,7 +73,7 @@ export const RegisterParty = async (req: Request, res: Response) => {
   return res.status(201).json({
     token,
     username,
-    partyname,
+    accessRights: AccessRights.superAdmin,
   });
 };
 
