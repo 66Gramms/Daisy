@@ -11,8 +11,11 @@ import {
 } from "./schema";
 import { Input } from "../../components/molecules/Input";
 import { Button } from "../../components/molecules/Button";
-import { registerParty } from "@/services/api/admin/party";
 import adminLoginAction from "@/actions/admin";
+import { registerPartyAction } from "@/actions/party";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/constants/querykeys";
 
 interface AdminLoginRegisterPageProps {
   hasParty: boolean;
@@ -26,7 +29,7 @@ export default function AdminLoginRegisterPage({
   return (
     <>
       {!hasParty && <RegisterPartyForm />}
-      {showLogin ? <LoginForm /> : <RegisterForm />}
+      {hasParty && (showLogin ? <LoginForm /> : <RegisterForm />)}
       <button
         type="button"
         className="text-gray-200 hover:underline text-sm mt-2"
@@ -87,9 +90,13 @@ const LoginForm = () => {
   } = useForm<AdminLoginFormData>({
     resolver: zodResolver(AdminLoginSchema),
   });
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const onSubmit = (data: AdminLoginFormData) => {
-    adminLoginAction(data);
+  const onSubmit = async (data: AdminLoginFormData) => {
+    const resp = await adminLoginAction(data);
+    queryClient.setQueryData([QueryKeys.ME], resp);
+    router.replace("/admin");
   };
 
   return (
@@ -126,9 +133,14 @@ const RegisterPartyForm = () => {
   } = useForm<PartyRegisterFormData>({
     resolver: zodResolver(PartyRegisterSchema),
   });
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const onSubmit = (data: PartyRegisterFormData) => {
-    registerParty(data);
+  const onSubmit = async (data: PartyRegisterFormData) => {
+    const resp = await registerPartyAction(data);
+    queryClient.setQueryData([QueryKeys.ME], resp.username);
+    queryClient.setQueryData([QueryKeys.PARTY], resp.partyname);
+    router.replace("/admin");
   };
 
   return (

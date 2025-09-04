@@ -1,12 +1,12 @@
 "use server";
 
-import { cookies } from "next/headers";
-import { AdminLoginFormData } from "@/pages/admin/schema";
-import { adminLogin } from "@/services/api/admin";
 import { Cookies } from "@/constants/cookies";
+import { PartyRegisterFormData } from "@/pages/admin/schema";
+import { registerParty } from "@/services/api/admin/party";
+import { cookies } from "next/headers";
 
-const adminLoginAction = async (data: AdminLoginFormData) => {
-  const resp = await adminLogin(data);
+export const registerPartyAction = async (data: PartyRegisterFormData) => {
+  const resp = await registerParty(data);
   const { token, ...rest } = resp;
 
   const cookieStore = await cookies();
@@ -20,5 +20,3 @@ const adminLoginAction = async (data: AdminLoginFormData) => {
 
   return rest;
 };
-
-export default adminLoginAction;

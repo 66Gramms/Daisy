@@ -1,10 +1,10 @@
 import { AdminLoginFormData } from "@/pages/admin/schema";
 import { ApiRoutes } from "../routes";
 import sendRequest from "../send-request";
-import { AdminLoginResponse } from "./types";
+import { adminLoginResponse } from "./types";
 
 export const adminLogin = async (data: AdminLoginFormData) => {
-  const response = await sendRequest<AdminLoginResponse>(
+  const response = await sendRequest<adminLoginResponse>(
     ApiRoutes.ADMIN_LOGIN,
     {
       method: "POST",

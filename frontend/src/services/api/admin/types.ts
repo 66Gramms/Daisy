@@ -1,4 +1,4 @@
-export interface AdminLoginResponse {
+export interface adminLoginResponse {
   username: string;
   token: string;
 }
