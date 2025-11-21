@@ -16,8 +16,8 @@ export function Button({
   onClick,
 }: FormButtonProps) {
   const disabledClass =
-    "bg-green-500/60 hover:bg-green-400/60 opacity-80 cursor-not-allowed hover:bg-gray-500";
-  const enabledClass = "bg-green-500 text-black hover:bg-green-600";
+    "bg-primary-400/60 hover:bg-primary-300/60 opacity-80 cursor-not-allowed hover:bg-gray-500";
+  const enabledClass = "bg-primary-400 text-text-inverted hover:bg-primary-500";
   return (
     <button
       type={type}

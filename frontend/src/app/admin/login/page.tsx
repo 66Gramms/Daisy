@@ -18,12 +18,12 @@ export default async function AdminLoginRegister() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col gap-12 items-center flex-1">
-        <div className="w-full max-w-sm p-8 rounded-xl shadow-lg bg-[#161b22] flex flex-col gap-8">
+        <div className="w-full max-w-sm p-8 rounded-xl shadow-lg bg-surface flex flex-col gap-8">
           <h1 className="text-3xl font-bold text-center mb-2">Daisy</h1>
           <AdminLoginRegisterPage hasParty={response?.hasParty ?? false} />
         </div>
         {!response?.hasParty && (
-          <p className="bg-black/70 rounded-lg p-4 text-center text-green-200 text-base font-medium shadow-inner mb-2">
+          <p className="bg-gray-900/70 rounded-lg p-4 text-center text-primary-100 text-base font-medium shadow-inner mb-2">
             Create the super administrator. If you see this screen after
             creating the super administrator, there is a problem with the
             backend SQLite connection.

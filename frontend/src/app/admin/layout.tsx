@@ -24,10 +24,10 @@ export default async function AdminLayout({
     <div
       className={`grid grid-cols-12 grid-rows-[80px_1fr] h-screen bg-main ${robotoMono.className} p`}
     >
-      <div className="font-sans row-span-1 col-span-2 flex items-center justify-center font-semibold text-3xl border-b border-r border-[#30363d]">
+      <div className="font-sans row-span-1 col-span-2 flex items-center justify-center font-semibold text-3xl border-b border-r border-border">
         Daisy
       </div>
-      <nav className="border-r flex-1 row-start-2 col-span-2 border-[#30363d]">
+      <nav className="border-r flex-1 row-start-2 col-span-2 border-border">
         <ul className="flex flex-col gap-4 p-4">
           <li>Dashboard</li>
           <li>Settings</li>
@@ -35,7 +35,7 @@ export default async function AdminLayout({
         </ul>
       </nav>
       <AdminHeader />
-      <main className="row-start-2 col-start-3 col-span-10 p-6 bg-[#0d1117]">
+      <main className="row-start-2 col-start-3 col-span-10 p-6 bg-background">
         {children}
       </main>
     </div>

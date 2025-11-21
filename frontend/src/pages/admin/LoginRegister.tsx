@@ -31,7 +31,7 @@ export default function AdminLoginRegisterPage({
       {!hasParty && <RegisterPartyForm />}
       {hasParty && (showLogin ? <LoginForm /> : <RegisterForm />)}
       <span
-        className="text-gray-200 hover:underline text-sm mt-2 text-center cursor-pointer"
+        className="text-text-secondary hover:underline text-sm mt-2 text-center cursor-pointer"
         onClick={() => setShowLogin((prev) => !prev)}
       >
         {showLogin ? "Register instead" : "Login instead"}

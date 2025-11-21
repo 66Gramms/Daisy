@@ -1,8 +1,69 @@
 @import "tailwindcss";
 
 @theme {
+  /* Base colors */
   --color-background: #0d1117;
   --color-foreground: #34d399;
+
+  /* Surface colors - GitHub dark theme inspired */
+  --color-surface: #161b22;
+  --color-surface-hover: #1c2128;
+  --color-main: #0d1117;
+
+  /* Border colors */
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+
+  /* Green accent colors (emerald scale) */
+  --color-primary: #34d399;
+  --color-primary-light: #6ee7b7;
+  --color-primary-dark: #10b981;
+  --color-primary-50: #d1fae5;
+  --color-primary-100: #a7f3d0;
+  --color-primary-200: #6ee7b7;
+  --color-primary-300: #34d399;
+  --color-primary-400: #10b981;
+  --color-primary-500: #059669;
+  --color-primary-600: #047857;
+
+  /* Success states */
+  --color-success: #10b981;
+  --color-success-light: #34d399;
+
+  /* Error/Danger colors */
+  --color-error: #ef4444;
+  --color-error-light: #f87171;
+  --color-error-dark: #dc2626;
+
+  /* Warning colors */
+  --color-warning: #f59e0b;
+  --color-warning-light: #fbbf24;
+
+  /* Info colors */
+  --color-info: #3b82f6;
+  --color-info-light: #60a5fa;
+
+  /* Gray scale - GitHub dark theme */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #8b949e;
+  --color-gray-300: #6e7681;
+  --color-gray-400: #484f58;
+  --color-gray-500: #30363d;
+  --color-gray-600: #21262d;
+  --color-gray-700: #161b22;
+  --color-gray-800: #0d1117;
+  --color-gray-900: #010409;
+
+  /* Text colors */
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-tertiary: #6e7681;
+  --color-text-inverted: #0d1117;
+
+  /* Semantic colors */
+  --color-muted: #6e7681;
+  --color-accent: #34d399;
 }
 
 @layer base {
@@ -37,7 +98,7 @@
 }
 
 @utility highlight-text {
-  @apply text-green-300 font-bold;
+  @apply text-primary-200 font-bold;
 }
 
 @layer utilities {
