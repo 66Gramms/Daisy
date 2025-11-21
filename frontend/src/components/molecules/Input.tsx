@@ -22,7 +22,7 @@ export function Input<T extends FieldValues = FieldValues>({
   disabled = false,
 }: InputProps<T>) {
   const inputClass = clsx(
-    "px-4 py-2 rounded bg-black text-white focus:outline-none focus:ring-2 placeholder:opacity-40",
+    "px-4 py-2 rounded-sm bg-black text-white focus:outline-hidden focus:ring-2 placeholder:opacity-40",
     {
       "border border-red-500 focus:ring-red-500": error,
       "border border-foreground focus:ring-foreground": !error,
@@ -54,7 +54,7 @@ export function Input<T extends FieldValues = FieldValues>({
         {...(register ? register(id) : {})}
       />
       {error && (
-        <span className="text-red-400 text-xs mt-1 px-1 py-0.5 rounded animate-fade-in">
+        <span className="text-red-400 text-xs mt-1 px-1 py-0.5 rounded-sm animate-fade-in">
           {error}
         </span>
       )}

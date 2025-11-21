@@ -1,28 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: #0d1117;
-  --foreground: #34d399;
+@theme {
+  --color-background: #0d1117;
+  --color-foreground: #34d399;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d1117;
-    --foreground: #34d399;
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  @apply text-foreground;
+/* Desktop-first breakpoints using custom media queries */
+@media (--sm) {
+  @custom-media --sm (max-width: 639px);
+}
+
+@media (--md) {
+  @custom-media --md (max-width: 767px);
+}
+
+@media (--lg) {
+  @custom-media --lg (max-width: 1023px);
+}
+
+@media (--xl) {
+  @custom-media --xl (max-width: 1279px);
+}
+
+@media (--2xl) {
+  @custom-media --2xl (max-width: 1535px);
+}
+
+@utility highlight-text {
+  @apply text-green-300 font-bold;
 }
 
 @layer utilities {
-  .highlight-text {
-    @apply text-green-300 font-bold;
+  body {
+    color: var(--color-foreground);
+    background: var(--color-background);
+    font-family: Arial, Helvetica, sans-serif;
   }
 }

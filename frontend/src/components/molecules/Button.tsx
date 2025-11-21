@@ -22,7 +22,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
-      className={`py-2 rounded ${className} ${disabled ? disabledClass : enabledClass}`}
+      className={`py-2 rounded-sm ${className} ${disabled ? disabledClass : enabledClass}`}
       onClick={onClick}
     >
       {children}
