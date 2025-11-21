@@ -30,13 +30,12 @@ export default function AdminLoginRegisterPage({
     <>
       {!hasParty && <RegisterPartyForm />}
       {hasParty && (showLogin ? <LoginForm /> : <RegisterForm />)}
-      <button
-        type="button"
-        className="text-gray-200 hover:underline text-sm mt-2"
+      <span
+        className="text-gray-200 hover:underline text-sm mt-2 text-center cursor-pointer"
         onClick={() => setShowLogin((prev) => !prev)}
       >
         {showLogin ? "Register instead" : "Login instead"}
-      </button>
+      </span>
     </>
   );
 }
@@ -72,12 +71,7 @@ const RegisterForm = () => {
         // register={register}
         // error={errors.key?.message}
       />
-      <Button
-        type="submit"
-        className="mt-4 py-2 rounded bg-green-500 text-black font-bold hover:bg-green-600 transition-colors"
-      >
-        Login
-      </Button>
+      <Button type="submit">Register</Button>
     </form>
   );
 };
@@ -115,12 +109,7 @@ const LoginForm = () => {
         register={register}
         error={errors.password?.message}
       />
-      <Button
-        type="submit"
-        className="mt-4 py-2 rounded bg-green-500 text-black font-bold hover:bg-green-600 transition-colors"
-      >
-        Login
-      </Button>
+      <Button type="submit">Login</Button>
     </form>
   );
 };

@@ -11,6 +11,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        main: "#161b22",
+        "brand-primary": "#34d399",
+        border: "#30363d",
       },
       screens: {
         sm: { max: "639px" },

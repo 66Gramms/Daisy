@@ -9,8 +9,8 @@ const AdminHeader = () => {
   };
 
   return (
-    <header className="col-span-10 border-b flex justify-between items-center px-8">
-      <p>Admin dashboard</p>
+    <header className="col-span-10 border-b font-semibold border-[#30363d] flex justify-between items-center px-8">
+      <p className="text-3xl">Daisy dashboard</p>
       <form action={handleLogout}>
         <Button type="submit">Logout</Button>
       </form>

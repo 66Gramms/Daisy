@@ -18,10 +18,8 @@ export default async function AdminLoginRegister() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col gap-12 items-center flex-1">
-        <div className="w-full max-w-sm p-8 rounded-xl shadow-lg bg-neutral-900 flex flex-col gap-8">
-          <h1 className="text-3xl font-bold text-green-500 text-center mb-2">
-            Daisy
-          </h1>
+        <div className="w-full max-w-sm p-8 rounded-xl shadow-lg bg-[#161b22] flex flex-col gap-8">
+          <h1 className="text-3xl font-bold text-center mb-2">Daisy</h1>
           <AdminLoginRegisterPage hasParty={response?.hasParty ?? false} />
         </div>
         {!response?.hasParty && (

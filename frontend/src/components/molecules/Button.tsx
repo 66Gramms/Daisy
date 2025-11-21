@@ -12,7 +12,7 @@ export function Button({
   children,
   type = "button",
   disabled,
-  className = "mt-4 py-2 rounded bg-green-500 text-black font-bold hover:bg-green-600 transition-colors",
+  className,
   onClick,
 }: FormButtonProps) {
   const disabledClass =
@@ -22,7 +22,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
-      className={`${className} ${disabled ? disabledClass : enabledClass}`}
+      className={`py-2 rounded ${className} ${disabled ? disabledClass : enabledClass}`}
       onClick={onClick}
     >
       {children}
