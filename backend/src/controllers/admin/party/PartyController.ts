@@ -9,22 +9,18 @@ import { createContextLogger } from "../../../logger";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
+import {
+  RegisterPartyRequest,
+  RegisterPartyResponse,
+  HasPartyResponse,
+} from "../../../dtos";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 const db = new sqlite3.Database("./database.sqlite");
 const logger = createContextLogger("PartyController");
 
 export const RegisterParty = async (req: Request, res: Response) => {
-  const { partyname, username, password, confirmPassword } = req.body;
-  if (!partyname || !username || !password || !confirmPassword) {
-    return res.status(400).json({
-      error:
-        "Party name, username, password, and confirm password are required.",
-    });
-  }
-  if (password !== confirmPassword) {
-    return res.status(400).json({ error: "Passwords do not match." });
-  }
+  const { partyname, username, password } = req.body as RegisterPartyRequest;
 
   try {
     const count = await GetPartyCount();
@@ -70,17 +66,19 @@ export const RegisterParty = async (req: Request, res: Response) => {
   logger.debug("User registered:", username);
   logger.debug("Party registered:", partyname);
   db.run("COMMIT");
-  return res.status(201).json({
+  const response: RegisterPartyResponse = {
     token,
     username,
     accessRights: AccessRights.superAdmin,
-  });
+  };
+  return res.status(201).json(response);
 };
 
 export const HasParty = async (req: Request, res: Response) => {
   try {
     const count = await GetPartyCount();
-    return res.status(200).json({ hasParty: count > 0 });
+    const response: HasPartyResponse = { hasParty: count > 0 };
+    return res.status(200).json(response);
   } catch (err: any) {
     logger.error("Error checking party existence:", err.message);
     return res.status(500).json({ error: "Internal server error" });

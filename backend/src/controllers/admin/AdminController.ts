@@ -3,21 +3,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createContextLogger } from "../../logger";
 import { GetUserByUsername } from "../../services/admin/AdminService";
+import { LoginRequest, LoginResponse } from "../../dtos";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 const logger = createContextLogger("AdminController");
 
 export const Login = async (req: Request, res: Response) => {
-  const { username, password } = req.body as {
-    username: string;
-    password: string;
-  };
-
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ error: "Username and password are required." });
-  }
+  const { username, password } = req.body as LoginRequest;
 
   try {
     const userRow = await GetUserByUsername(username);
@@ -35,11 +27,12 @@ export const Login = async (req: Request, res: Response) => {
         expiresIn: "7d",
       }
     );
-    res.json({
+    const response: LoginResponse = {
       token,
       username: userRow.username,
       accessRights: userRow.accessRights,
-    });
+    };
+    res.json(response);
   } catch (err: any) {
     logger.error("Login error:", err);
     return res.status(500).json({ error: "Internal server error" });
