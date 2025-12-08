@@ -7,6 +7,8 @@ import adminRouter from "./routes/admin/index";
 import partyRouter from "./routes/admin/party/index";
 import cors from "cors";
 import { requestLogger } from "./middleware/requestLogger";
+import redoc from "redoc-express";
+import path from "path";
 
 const PORT = process.env.PORT || 5000;
 
@@ -34,6 +36,31 @@ app.use(requestLogger);
 
 app.use("/api/admin", adminRouter);
 app.use("/api/admin/party", partyRouter);
+
+app.get(
+  "/api/docs",
+  redoc({
+    title: "Daisy API Documentation",
+    specUrl: "/api/openapi.json",
+    redocOptions: {
+      theme: {
+        colors: {
+          primary: {
+            main: "#7c3aed",
+          },
+        },
+        typography: {
+          fontFamily: "system-ui, -apple-system, sans-serif",
+        },
+      },
+    },
+  })
+);
+
+app.get("/api/openapi.json", (req, res) => {
+  const openapiPath = path.join(__dirname, "openapi.json");
+  res.sendFile(openapiPath);
+});
 
 app
   .listen(PORT, () => {

@@ -1,0 +1,240 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Daisy API",
+    "description": "Party management system API with admin dashboard",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Admin",
+      "description": "Admin authentication endpoints"
+    },
+    {
+      "name": "Party",
+      "description": "Party management endpoints"
+    }
+  ],
+  "paths": {
+    "/api/admin/login": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Admin login",
+        "description": "Authenticate an admin user and receive a JWT token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/party/register-party": {
+      "post": {
+        "tags": ["Party"],
+        "summary": "Register party and create super admin",
+        "description": "First-time setup endpoint to create a party and its super admin user. Can only be called once.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterPartyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Party registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterPartyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or party already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/party/has-party": {
+      "get": {
+        "tags": ["Party"],
+        "summary": "Check if party exists",
+        "description": "Check if a party has already been registered in the system",
+        "responses": {
+          "200": {
+            "description": "Party existence status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HasPartyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Username for authentication"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "description": "Password for authentication"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "required": ["token", "username", "accessRights"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT authentication token (7-day expiry)"
+          },
+          "username": {
+            "type": "string",
+            "description": "Authenticated user's username"
+          },
+          "accessRights": {
+            "type": "integer",
+            "description": "User access level (0=banned, 1=user, 2=admin, 3=superAdmin)",
+            "enum": [0, 1, 2, 3]
+          }
+        }
+      },
+      "RegisterPartyRequest": {
+        "type": "object",
+        "required": ["partyname", "username", "password", "confirmPassword"],
+        "properties": {
+          "partyname": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Name of the party to register"
+          },
+          "username": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Username for the super admin account"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "description": "Password for the super admin account"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Password confirmation (must match password)"
+          }
+        }
+      },
+      "RegisterPartyResponse": {
+        "type": "object",
+        "required": ["token", "username", "accessRights"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT authentication token (7-day expiry)"
+          },
+          "username": {
+            "type": "string",
+            "description": "Created super admin username"
+          },
+          "accessRights": {
+            "type": "integer",
+            "description": "User access level (will be 3 for superAdmin)",
+            "enum": [3]
+          }
+        }
+      },
+      "HasPartyResponse": {
+        "type": "object",
+        "required": ["hasParty"],
+        "properties": {
+          "hasParty": {
+            "type": "boolean",
+            "description": "Whether a party has been registered"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message describing what went wrong"
+          }
+        }
+      }
+    }
+  }
+}
