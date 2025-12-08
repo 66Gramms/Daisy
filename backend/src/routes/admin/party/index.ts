@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  HasParty,
+  GetParty,
   RegisterParty,
 } from "../../../controllers/admin/party/PartyController";
 import { validate } from "../../../middleware/validate";
@@ -8,8 +8,12 @@ import { RegisterPartyRequestSchema } from "../../../dtos";
 
 const router = Router();
 
-router.post("/register-party", validate(RegisterPartyRequestSchema), RegisterParty);
+router.post(
+  "/register-party",
+  validate(RegisterPartyRequestSchema),
+  RegisterParty
+);
 
-router.get("/has-party", HasParty);
+router.get("/has-party", GetParty);
 
 export default router;

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const HasPartyResponseSchema = z.object({
-  hasParty: z.boolean(),
+export const GetPartyResponseSchema = z.object({
+  name: z.string(),
 });
 
-export type HasPartyResponse = z.infer<typeof HasPartyResponseSchema>;
+export type GetPartyResponse = z.infer<typeof GetPartyResponseSchema>;

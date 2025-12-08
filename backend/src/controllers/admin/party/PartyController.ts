@@ -1,10 +1,10 @@
 import sqlite3 from "sqlite3";
 import { AccessRights } from "../../../consts";
-import { CreateParty } from "../../../services/admin/party/PartyService";
 import {
-  CreateUser,
-  GetPartyCount,
-} from "../../../services/admin/AdminService";
+  CreateParty,
+  GetPartyName,
+} from "../../../services/admin/party/PartyService";
+import { CreateUser } from "../../../services/admin/AdminService";
 import { createContextLogger } from "../../../logger";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -12,7 +12,7 @@ import { Request, Response } from "express";
 import {
   RegisterPartyRequest,
   RegisterPartyResponse,
-  HasPartyResponse,
+  GetPartyResponse,
 } from "../../../dtos";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
@@ -23,8 +23,8 @@ export const RegisterParty = async (req: Request, res: Response) => {
   const { partyname, username, password } = req.body as RegisterPartyRequest;
 
   try {
-    const count = await GetPartyCount();
-    if (count > 0) {
+    const name = await GetPartyName();
+    if (name.length > 0) {
       return res.status(403).json({
         error:
           "Party already exists. This endpoint should only be called once.",
@@ -74,10 +74,13 @@ export const RegisterParty = async (req: Request, res: Response) => {
   return res.status(201).json(response);
 };
 
-export const HasParty = async (req: Request, res: Response) => {
+export const GetParty = async (req: Request, res: Response) => {
   try {
-    const count = await GetPartyCount();
-    const response: HasPartyResponse = { hasParty: count > 0 };
+    const name = await GetPartyName();
+    const response: GetPartyResponse = {
+      name,
+    };
+    console.log("resp", response);
     return res.status(200).json(response);
   } catch (err: any) {
     logger.error("Error checking party existence:", err.message);

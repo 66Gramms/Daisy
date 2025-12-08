@@ -113,15 +113,25 @@
     "/api/admin/party/has-party": {
       "get": {
         "tags": ["Party"],
-        "summary": "Check if party exists",
-        "description": "Check if a party has already been registered in the system",
+        "summary": "Get party name",
+        "description": "Retrieve the name of the registered party. Returns empty string if no party exists.",
         "responses": {
           "200": {
-            "description": "Party existence status",
+            "description": "Party name or empty string",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HasPartyResponse"
+                  "$ref": "#/components/schemas/GetPartyResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -174,24 +184,26 @@
         "properties": {
           "partyname": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 2,
             "maxLength": 100,
             "description": "Name of the party to register"
           },
           "username": {
             "type": "string",
-            "minLength": 1,
-            "maxLength": 50,
+            "minLength": 3,
+            "maxLength": 100,
             "description": "Username for the super admin account"
           },
           "password": {
             "type": "string",
-            "minLength": 6,
+            "minLength": 8,
+            "maxLength": 100,
             "description": "Password for the super admin account"
           },
           "confirmPassword": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 8,
+            "maxLength": 100,
             "description": "Password confirmation (must match password)"
           }
         }
@@ -215,13 +227,13 @@
           }
         }
       },
-      "HasPartyResponse": {
+      "GetPartyResponse": {
         "type": "object",
-        "required": ["hasParty"],
+        "required": ["name"],
         "properties": {
-          "hasParty": {
-            "type": "boolean",
-            "description": "Whether a party has been registered"
+          "name": {
+            "type": "string",
+            "description": "The party's name or empty string if no party exists"
           }
         }
       },

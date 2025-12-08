@@ -45,14 +45,3 @@ export function GetUserByUsername(username: string): Promise<{
     });
   });
 }
-
-export const GET_PARTY_COUNT = "SELECT COUNT(*) as count FROM party";
-export function GetPartyCount(): Promise<number> {
-  return new Promise((resolve, reject) => {
-    db.get(GET_PARTY_COUNT, [], (err, row) => {
-      if (err) return reject(err);
-      const count = (row as { count: number }).count;
-      resolve(count);
-    });
-  });
-}

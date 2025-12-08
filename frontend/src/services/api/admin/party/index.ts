@@ -1,10 +1,10 @@
 import { PartyRegisterFormData } from "@/pages/admin/schema";
 import { ApiRoutes, getApiUrl } from "../../routes";
 import sendRequest from "../../send-request";
-import { hasPartyResponse, registerPartyResponse } from "./types";
+import { partyResponse, registerPartyResponse } from "./types";
 
-export const getHasParty = async () => {
-  const response = await sendRequest<hasPartyResponse>(
+export const getParty = async () => {
+  const response = await sendRequest<partyResponse>(
     getApiUrl(ApiRoutes.HAS_PARTY),
   );
   return response;

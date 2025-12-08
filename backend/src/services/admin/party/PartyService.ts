@@ -11,3 +11,14 @@ export function CreateParty(partyname: string): Promise<void> {
     });
   });
 }
+
+export const GET_PARTY_NAME = "SELECT name FROM party LIMIT 1";
+export function GetPartyName(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    db.get(GET_PARTY_NAME, [], (err, row) => {
+      if (err) return reject(err);
+      if (!row) return resolve("");
+      resolve((row as { name: string }).name);
+    });
+  });
+}

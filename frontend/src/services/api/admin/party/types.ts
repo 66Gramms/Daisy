@@ -1,7 +1,7 @@
 import { AccessRights } from "@/constants/common";
 
-export interface hasPartyResponse {
-  hasParty: boolean;
+export interface partyResponse {
+  name: string;
 }
 
 export interface registerPartyResponse {
