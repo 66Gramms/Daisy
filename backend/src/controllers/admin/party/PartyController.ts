@@ -1,4 +1,3 @@
-import sqlite3 from "sqlite3";
 import { AccessRights } from "@/consts";
 import {
   CreateParty,
@@ -14,9 +13,9 @@ import {
   RegisterPartyResponse,
   GetPartyResponse,
 } from "@/dtos";
+import db from "@/db";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
-const db = new sqlite3.Database("./database.sqlite");
 const logger = createContextLogger("PartyController");
 
 export const RegisterParty = async (req: Request, res: Response) => {

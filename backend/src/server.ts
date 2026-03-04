@@ -1,5 +1,4 @@
 import express from "express";
-import sqlite3 from "sqlite3";
 import fs from "fs";
 import bodyParser from "body-parser";
 import { logger } from "@/logger";
@@ -9,22 +8,17 @@ import cors from "cors";
 import { requestLogger } from "@/middleware/requestLogger";
 import redoc from "redoc-express";
 import path from "path";
+import db from "@/db";
 
 const PORT = process.env.PORT || 5000;
 
-const db = new sqlite3.Database("./database.sqlite", (err: Error | null) => {
+const initSql = fs.readFileSync("./database.sqlite.init.sql", "utf8");
+db.exec(initSql, (err: Error | null) => {
   if (err) {
-    logger.error("Error opening database:", err.message);
+    logger.error("Error, couldn't initialize SQL:", err.message);
     process.exit(1);
   } else {
-    const initSql = fs.readFileSync("./database.sqlite.init.sql", "utf8");
-    db.exec(initSql, (err: Error | null) => {
-      if (err) {
-        logger.error("Error, couldn't initialize SQL:", err.message);
-      } else {
-        logger.info("Database initialized");
-      }
-    });
+    logger.info("Database initialized");
   }
 });
 

@@ -10,9 +10,7 @@ Routes only wire paths to controllers. Validation happens via middleware before 
 
 ## Key design decisions
 
-**Each service opens its own `sqlite3.Database` connection at module load.** This means there is no shared connection pool or singleton. `server.ts` also opens a connection, but only to run the init SQL. This is a simplicity tradeoff, not a pattern to scale with.
-
-**The `RegisterParty` transaction is broken.** The controller issues `BEGIN`/`COMMIT` on its own `db` instance, but `CreateUser` and `CreateParty` each use their service's separate connection. The transaction boundaries don't actually wrap the service calls. This works in practice because SQLite serializes writes, but it wouldn't survive a failure between the two inserts.
+**All modules share a single `sqlite3.Database` connection** exported from `src/db.ts`. This ensures transactions in controllers (e.g. `RegisterParty`) correctly wrap service calls, since everyone operates on the same connection.
 
 **No backend auth middleware.** JWT tokens are issued on login but never validated on subsequent requests. Route protection relies entirely on the frontend middleware checking for cookie existence. Any backend route can be hit directly without authentication.
 

@@ -1,8 +1,7 @@
 import { Router, Request, Response } from "express";
-import sqlite3 from "sqlite3";
+import db from "@/db";
 
 const router = Router();
-const db = new sqlite3.Database("./database.sqlite");
 
 router.get("/users", (req: Request, res: Response) => {
   db.all("SELECT id, username, email FROM users", [], (err, rows) => {

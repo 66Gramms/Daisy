@@ -1,6 +1,4 @@
-import sqlite3 from "sqlite3";
-
-const db = new sqlite3.Database("./database.sqlite");
+import db from "@/db";
 
 const CREATE_PARTY = "INSERT INTO party (name) VALUES (?)";
 export function CreateParty(partyname: string): Promise<void> {
