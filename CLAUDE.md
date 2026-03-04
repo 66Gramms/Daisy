@@ -159,6 +159,8 @@ party (name PRIMARY KEY)
 
 ## Key Files
 
+- `backend/BACKEND.md` - Full backend module documentation (modules, routes, services, DTOs)
+- `frontend/FRONTEND.md` - Full frontend module documentation (pages, components, actions, API client)
 - `backend/database.sqlite.init.sql` - Database schema definition
 - `backend/src/server.ts` - Database initialization on startup
 - `frontend/src/middleware.ts` - Authentication guard logic
@@ -191,7 +193,7 @@ NEXT_TELEMETRY_DISABLED=1
 
 - **No migrations:** Database schema is static in `.init.sql`, recreated if missing
 - **No backend auth middleware:** JWT not validated on backend routes (rely on frontend middleware)
-- **Deleted routes:** `backend/routes/admin.ts` and `backend/routes/users.ts` were removed (git status shows as deleted)
+- **Legacy route:** `backend/src/routes/users.ts` exists but is not mounted in `server.ts` and is not active
 - **Tailwind v4:** Uses new `@theme` directive in CSS instead of `tailwind.config.js`
 - **React 19:** Uses latest React features (new hooks, improved server components)
 - **Server components default:** All frontend components are server components unless marked with `"use client"`

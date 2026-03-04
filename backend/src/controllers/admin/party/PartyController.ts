@@ -44,7 +44,7 @@ export const RegisterParty = async (req: Request, res: Response) => {
     userId = await CreateUser(
       username,
       hashedPassword,
-      AccessRights.superAdmin
+      AccessRights.superAdmin,
     );
   } catch (err: any) {
     logger.error("Error registering user:", err.message);
@@ -61,7 +61,7 @@ export const RegisterParty = async (req: Request, res: Response) => {
   const token = jwt.sign(
     { userId, accesRights: AccessRights.superAdmin },
     SECRET_KEY,
-    { expiresIn: "7d" }
+    { expiresIn: "7d" },
   );
   logger.debug("User registered:", username);
   logger.debug("Party registered:", partyname);
@@ -80,7 +80,6 @@ export const GetParty = async (req: Request, res: Response) => {
     const response: GetPartyResponse = {
       name,
     };
-    console.log("resp", response);
     return res.status(200).json(response);
   } catch (err: any) {
     logger.error("Error checking party existence:", err.message);
