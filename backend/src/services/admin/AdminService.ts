@@ -1,5 +1,5 @@
 import sqlite3 from "sqlite3";
-import { AccessRights } from "../../consts";
+import { AccessRights } from "@/consts";
 
 const db = new sqlite3.Database("./database.sqlite");
 

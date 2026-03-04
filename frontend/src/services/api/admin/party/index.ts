@@ -1,7 +1,7 @@
 import { PartyRegisterFormData } from "@/pages/admin/schema";
-import { ApiRoutes, getApiUrl } from "../../routes";
-import sendRequest from "../../send-request";
-import { partyResponse, registerPartyResponse } from "./types";
+import { ApiRoutes, getApiUrl } from "@/services/api/routes";
+import sendRequest from "@/services/api/send-request";
+import { partyResponse, registerPartyResponse } from "@/services/api/admin/party/types";
 
 export const getParty = async () => {
   const response = await sendRequest<partyResponse>(

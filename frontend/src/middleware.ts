@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { Cookies } from "./constants/cookies";
+import { Cookies } from "@/constants/cookies";
 
 export function middleware(request: NextRequest) {
   const bearer = request.cookies.get(Cookies.BEARER_TOKEN);

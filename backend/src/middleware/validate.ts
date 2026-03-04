@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
-import { createContextLogger } from "../logger";
+import { createContextLogger } from "@/logger";
 
 const logger = createContextLogger("ValidationMiddleware");
 

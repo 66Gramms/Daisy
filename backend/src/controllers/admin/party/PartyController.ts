@@ -1,11 +1,11 @@
 import sqlite3 from "sqlite3";
-import { AccessRights } from "../../../consts";
+import { AccessRights } from "@/consts";
 import {
   CreateParty,
   GetPartyName,
-} from "../../../services/admin/party/PartyService";
-import { CreateUser } from "../../../services/admin/AdminService";
-import { createContextLogger } from "../../../logger";
+} from "@/services/admin/party/PartyService";
+import { CreateUser } from "@/services/admin/AdminService";
+import { createContextLogger } from "@/logger";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
@@ -13,7 +13,7 @@ import {
   RegisterPartyRequest,
   RegisterPartyResponse,
   GetPartyResponse,
-} from "../../../dtos";
+} from "@/dtos";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 const db = new sqlite3.Database("./database.sqlite");

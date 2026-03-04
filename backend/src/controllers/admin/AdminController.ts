@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { createContextLogger } from "../../logger";
-import { GetUserByUsername } from "../../services/admin/AdminService";
-import { LoginRequest, LoginResponse } from "../../dtos";
+import { createContextLogger } from "@/logger";
+import { GetUserByUsername } from "@/services/admin/AdminService";
+import { LoginRequest, LoginResponse } from "@/dtos";
 
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 const logger = createContextLogger("AdminController");

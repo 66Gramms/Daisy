@@ -2,11 +2,11 @@ import express from "express";
 import sqlite3 from "sqlite3";
 import fs from "fs";
 import bodyParser from "body-parser";
-import { logger } from "./logger";
-import adminRouter from "./routes/admin/index";
-import partyRouter from "./routes/admin/party/index";
+import { logger } from "@/logger";
+import adminRouter from "@/routes/admin/index";
+import partyRouter from "@/routes/admin/party/index";
 import cors from "cors";
-import { requestLogger } from "./middleware/requestLogger";
+import { requestLogger } from "@/middleware/requestLogger";
 import redoc from "redoc-express";
 import path from "path";
 

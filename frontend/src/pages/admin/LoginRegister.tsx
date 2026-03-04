@@ -8,9 +8,9 @@ import {
   AdminLoginSchema,
   PartyRegisterFormData,
   PartyRegisterSchema,
-} from "./schema";
-import { Input } from "../../components/molecules/Input";
-import { Button } from "../../components/molecules/Button";
+} from "@/pages/admin/schema";
+import { Input } from "@/components/molecules/Input";
+import { Button } from "@/components/molecules/Button";
 import adminLoginAction from "@/actions/admin";
 import { registerPartyAction } from "@/actions/party";
 import { useRouter } from "next/navigation";

@@ -1,7 +1,7 @@
 import { AdminLoginFormData } from "@/pages/admin/schema";
-import { ApiRoutes } from "../routes";
-import sendRequest from "../send-request";
-import { adminLoginResponse } from "./types";
+import { ApiRoutes } from "@/services/api/routes";
+import sendRequest from "@/services/api/send-request";
+import { adminLoginResponse } from "@/services/api/admin/types";
 
 export const adminLogin = async (data: AdminLoginFormData) => {
   const response = await sendRequest<adminLoginResponse>(

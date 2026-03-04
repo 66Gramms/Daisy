@@ -1,7 +1,7 @@
 "use client";
 
 import { adminLogoutAction } from "@/actions/admin";
-import { Button } from "../molecules/Button";
+import { Button } from "@/components/molecules/Button";
 
 const AdminHeader = () => {
   const handleLogout = async () => {
