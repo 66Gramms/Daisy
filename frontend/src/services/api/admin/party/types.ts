@@ -1,10 +1,10 @@
 import { AccessRights } from "@/constants/common";
 
-export interface partyResponse {
+export interface PartyResponse {
   name: string;
 }
 
-export interface registerPartyResponse {
+export interface RegisterPartyResponse {
   token: string;
   username: string;
   accessRights: AccessRights;

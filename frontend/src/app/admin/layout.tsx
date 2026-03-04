@@ -24,10 +24,10 @@ export default async function AdminLayout({
     <div
       className={`grid grid-cols-12 grid-rows-[80px_1fr] h-screen bg-main ${robotoMono.className} p`}
     >
-      <div className="font-sans row-span-1 col-span-2 flex items-center justify-center font-semibold text-3xl border-b border-r border-border">
+      <div className="font-sans row-span-1 col-span-2 flex items-center justify-center font-semibold text-3xl border-b border-r border-border bg-surface">
         Daisy
       </div>
-      <nav className="border-r flex-1 row-start-2 col-span-2 border-border">
+      <nav className="border-r flex-1 row-start-2 col-span-2 border-border bg-surface">
         <ul className="flex flex-col gap-4 p-4">
           <li>Dashboard</li>
           <li>Settings</li>

@@ -1,6 +1,6 @@
 import { AccessRights } from "@/constants/common";
 
-export interface adminLoginResponse {
+export interface AdminLoginResponse {
   username: string;
   token: string;
   accessRights: AccessRights;
