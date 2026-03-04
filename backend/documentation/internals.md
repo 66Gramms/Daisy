@@ -14,7 +14,7 @@ Routes only wire paths to controllers. Validation happens via middleware before 
 
 **No backend auth middleware.** JWT tokens are issued on login but never validated on subsequent requests. Route protection relies entirely on the frontend middleware checking for cookie existence. Any backend route can be hit directly without authentication.
 
-**Username lookup is case-insensitive** (`LOWER(username)`), but the uniqueness constraint on the `users` table is case-sensitive. So "Alice" and "alice" can both be inserted, but login will match either for both. This is a bug waiting to happen.
+**Username uniqueness is case-insensitive** via `COLLATE NOCASE` on the `username` column, so "Alice" and "alice" are treated as the same user for both insertion and lookup.
 
 ## Validation
 
